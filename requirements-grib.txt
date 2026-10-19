@@ -1,0 +1,3 @@
+-r requirements.txt
+ecmwf-opendata>=0.3.26
+eccodes>=2.38
