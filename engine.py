@@ -10,13 +10,16 @@ import requests
 
 BASE=Path(__file__).resolve().parent
 DATA=BASE/'data'; DATA.mkdir(exist_ok=True)
-# Initial offshore corridor ONLY. Unvalidated: verify all legs on nautical charts.
+# Offshore corridor: >=7 NM from land (Natural Earth 10m) outside the departure gulf and the
+# Genova approach; west of Ponza, Montecristo and Pianosa, between Capraia and Cap Corse.
+# Unvalidated: verify all legs on nautical charts.
 WAYPOINTS=[
- ('Policastro',40.070,15.520),('Largo Palinuro',40.120,14.950),
- ('Tirreno meridionale',40.550,13.900),('Largo Ponza',41.050,12.850),
- ('Tirreno centrale',41.650,11.950),('Largo Argentario',42.300,11.100),
- ('Sud Elba',42.580,10.450),('Settore Capraia',43.000,9.850),
- ('Mar Ligure',43.650,9.300),('Avvicinamento Genova',44.150,8.900),
+ ('Policastro',40.070,15.520),('Golfo di Policastro',39.980,15.460),
+ ('Uscita Golfo di Policastro',39.920,15.320),('Largo Palinuro',39.950,15.050),
+ ('Tirreno meridionale',40.300,13.900),('Largo Ponza',40.700,12.700),
+ ('Tirreno centrale',41.400,11.500),('Largo Montecristo',42.050,10.250),
+ ('Ovest Pianosa',42.450,9.860),('Capraia-Capo Corso',43.040,9.610),
+ ('Mar Ligure',43.650,9.300),('Avvicinamento Genova',44.150,9.000),
  ('Genova',44.400,8.930)]
 MODELS=['ncep_gefs05','ecmwf_ifs025_ensemble']
 ATM=['wind_speed_10m','wind_gusts_10m','wind_direction_10m','pressure_msl']
