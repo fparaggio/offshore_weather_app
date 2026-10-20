@@ -1,1 +1,248 @@
-<p>No AI report yet. Run <code>python report.py</code>.</p>
+<h1>Briefing automatico — Policastro → Genova</h1>
+<h1>Analisi meteo-marina preliminare — traversata offshore su Grand Soleil 35</h1>
+<p><strong>Dati usati esclusivamente:</strong> ECMWF Open Data IFS ENS + wave forecast, run <strong>2026-10-19 12:00 UTC</strong>, orizzonte fino a <strong>2026-11-03 12:00 UTC</strong>.<br />
+<strong>Rotta:</strong> corridoio geografico preliminare di <strong>411,39 NM</strong>, campionato ogni <strong>10 NM</strong>, <strong>non validato su carta nautica</strong>.<br />
+<strong>Nota operativa:</strong> questa analisi <strong>non è un GO/NO-GO</strong> e non sostituisce bollettini ufficiali, carte nautiche, avvisi di burrasca, valutazione dello skipper e verifica locale prima della partenza.</p>
+<hr />
+<h2>1. Copertura dati</h2>
+<h3>1.1 Fonte e modello</h3>
+<ul>
+<li><strong>Atmosfera:</strong> ECMWF IFS ENS diretto, griglia <strong>0,25°</strong>, membri <strong>0–50</strong>:</li>
+<li>membro <strong>0</strong> = operativo/controllo;</li>
+<li>membri <strong>1–50</strong> = ensemble perturbato.</li>
+<li><strong>Onde:</strong> ECMWF <strong>wave forecast deterministico</strong>, non ensemble:</li>
+<li>parametri disponibili: <strong>SWH</strong> altezza significativa onda, <strong>MWD</strong>, <strong>MWP</strong>;</li>
+<li><strong>nessun ensemble marino</strong>;</li>
+<li><strong>nessuna separazione dello swell</strong>.</li>
+<li><strong>Risoluzione:</strong> 0,25°, nearest grid cell, <strong>senza downscaling costiero</strong>.</li>
+<li><strong>Campionamento rotta:</strong> 47 punti.</li>
+<li><strong>Step temporali scaricati:</strong> da <strong>+258 h</strong> a <strong>+360 h</strong>, ogni 6 h.</li>
+<li><strong>Copertura temporale modello:</strong> fino a <strong>2026-11-03 12:00 UTC</strong>.</li>
+</ul>
+<h3>1.2 Copertura per partenze e velocità</h3>
+<table>
+<thead>
+<tr>
+<th>Partenza UTC</th>
+<th style="text-align: right;">Velocità</th>
+<th>ETA UTC</th>
+<th>Entro orizzonte modello</th>
+<th>Note copertura</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-10-30 07:00</td>
+<td style="text-align: right;">5,0 kn</td>
+<td>2026-11-02 17:16</td>
+<td>Sì</td>
+<td>47/47 punti temporalmente bracketed</td>
+</tr>
+<tr>
+<td>2026-10-30 07:00</td>
+<td style="text-align: right;">5,5 kn</td>
+<td>2026-11-02 09:47</td>
+<td>Sì</td>
+<td>47/47 punti temporalmente bracketed</td>
+</tr>
+<tr>
+<td>2026-10-30 07:00</td>
+<td style="text-align: right;">6,0 kn</td>
+<td>2026-11-02 03:33</td>
+<td>Sì</td>
+<td>47/47 punti temporalmente bracketed</td>
+</tr>
+<tr>
+<td>2026-10-31 07:00</td>
+<td style="text-align: right;">5,0 kn</td>
+<td>2026-11-03 17:16</td>
+<td><strong>No</strong></td>
+<td>Arrivo oltre orizzonte di <strong>5,278 h</strong>; <strong>NON VALUTABILE</strong> in modo completo</td>
+</tr>
+<tr>
+<td>2026-10-31 07:00</td>
+<td style="text-align: right;">5,5 kn</td>
+<td>2026-11-03 09:47</td>
+<td>Sì</td>
+<td>47/47 punti temporalmente bracketed</td>
+</tr>
+<tr>
+<td>2026-10-31 07:00</td>
+<td style="text-align: right;">6,0 kn</td>
+<td>2026-11-03 03:33</td>
+<td>Sì</td>
+<td>47/47 punti temporalmente bracketed</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Il “temporal bracketing” indica solo che gli ETA dei punti sono compresi tra step GRIB scaricati; <strong>non garantisce validità nautica locale né completezza d’onda in ogni punto</strong>.</p>
+</blockquote>
+<h3>1.3 Completezza vento e onde</h3>
+<ul>
+<li><strong>Vento ensemble atmosferico:</strong> completo per quasi tutte le combinazioni, salvo partenza <strong>31 ottobre a 5,0 kn</strong>, che va oltre orizzonte.</li>
+<li><strong>Onde:</strong> valori deterministici disponibili solo dove la cella wave risulta valida.</li>
+<li>Nei riepiloghi comparativi <code>complete_wave_members = 0</code> perché <strong>non esiste un ensemble marino completo</strong> e perché alcuni punti hanno onda mancante.</li>
+<li>Valori onda mancanti nei dati puntuali a:</li>
+<li><strong>P000</strong> in partenza;</li>
+<li><strong>P032–P033</strong> nel settore <strong>Sud Elba</strong>;</li>
+<li><strong>P046</strong> in arrivo <strong>Genova</strong>.</li>
+<li>Pertanto:</li>
+<li>analisi onda = <strong>deterministica e incompleta</strong>;</li>
+<li>probabilità/frequenze onda = <strong>NON VALUTABILI</strong>.</li>
+</ul>
+<hr />
+<h2>2. Sintesi</h2>
+<h3>2.1 Quadro generale dai dati forniti</h3>
+<p>Le due finestre di partenza analizzate sono:</p>
+<ul>
+<li><strong>30 ottobre 2026 07:00 UTC</strong></li>
+<li><strong>31 ottobre 2026 07:00 UTC</strong></li>
+</ul>
+<p>Per velocità di riferimento <strong>5,5 kn</strong>, entrambe restano entro l’orizzonte modello.<br />
+Le differenze principali dai dati disponibili:</p>
+<ul>
+<li>La partenza <strong>30 ottobre a 5,5 kn</strong> mostra il massimo segnale vento/raffica nel tratto <strong>Settore Capraia – Mar Ligure</strong>, con:</li>
+<li>vento p90 fino a <strong>22,03 kn</strong> a P037;</li>
+<li>raffica p90 fino a <strong>31,66 kn</strong> a P036;</li>
+<li>onda deterministica fino a <strong>1,58 m</strong> nel <strong>Mar Ligure</strong> a P043.</li>
+<li>La partenza <strong>31 ottobre a 5,5 kn</strong> mostra una fase più marcata tra <strong>Largo Ponza – Tirreno centrale – Largo Argentario</strong>, con:</li>
+<li>vento p90 fino a <strong>22,34 kn</strong> a P021;</li>
+<li>raffica p90 fino a <strong>32,31 kn</strong> a P025;</li>
+<li>onda deterministica fino a circa <strong>1,38 m</strong> tra <strong>Largo Argentario / Sud Elba</strong>.</li>
+<li>In entrambe le partenze, l’arrivo verso <strong>Mar Ligure / Avvicinamento Genova</strong> avviene dopo navigazione notturna o di prima mattina:</li>
+<li>partenza 30/10: Mar Ligure tra <strong>2026-11-02 00:45–05:29 UTC</strong>, avvicinamento Genova dalle <strong>07:03 UTC</strong>;</li>
+<li>partenza 31/10: Mar Ligure tra <strong>2026-11-03 00:45–05:29 UTC</strong>, avvicinamento Genova dalle <strong>07:03 UTC</strong>.</li>
+</ul>
+<h3>2.2 Elementi non valutabili</h3>
+<ul>
+<li><strong>Partenza 31 ottobre a 5,0 kn:</strong> <strong>NON VALUTABILE</strong> in modo completo perché ETA oltre orizzonte modello.</li>
+<li><strong>Onda ensemble:</strong> <strong>NON VALUTABILE</strong>, dati onda solo deterministici.</li>
+<li><strong>Probabilità marine:</strong> <strong>NON VALUTABILI</strong>.</li>
+<li><strong>Swell separato:</strong> assente.</li>
+<li><strong>Rotta reale navigabile:</strong> <strong>NON VALUTABILE</strong> con questi dati; il corridoio non è validato su carta nautica.</li>
+</ul>
+<hr />
+<h2>3. Confronto partenze dal 30 ottobre 2026</h2>
+<p>Le seguenti frequenze sono <strong>empiriche sui 51 membri atmosferici</strong> e <strong>non calibrate</strong>.<br />
+Riguardano il massimo vento lungo i punti campionati della rotta, non una previsione probabilistica certificata.</p>
+<h3>3.1 Riepilogo comparativo atmosferico</h3>
+<table>
+<thead>
+<tr>
+<th>Partenza</th>
+<th style="text-align: right;">Velocità</th>
+<th style="text-align: right;">Durata stimata</th>
+<th style="text-align: right;">Vento max p50</th>
+<th style="text-align: right;">Vento max p90</th>
+<th style="text-align: right;">Freq. &gt;20 kn</th>
+<th style="text-align: right;">Freq. &gt;25 kn</th>
+<th style="text-align: right;">Freq. &gt;30 kn</th>
+<th>Valutabilità</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30/10</td>
+<td style="text-align: right;">5,0 kn</td>
+<td style="text-align: right;">82,28 h</td>
+<td style="text-align: right;">18,68 kn</td>
+<td style="text-align: right;">22,97 kn</td>
+<td style="text-align: right;">43,1%</td>
+<td style="text-align: right;">5,9%</td>
+<td style="text-align: right;">0,0%</td>
+<td>Valutabile vento</td>
+</tr>
+<tr>
+<td>30/10</td>
+<td style="text-align: right;">5,5 kn</td>
+<td style="text-align: right;">74,80 h</td>
+<td style="text-align: right;">18,01 kn</td>
+<td style="text-align: right;">25,05 kn</td>
+<td style="text-align: right;">37,3%</td>
+<td style="text-align: right;">11,8%</td>
+<td style="text-align: right;">0,0%</td>
+<td>Valutabile vento</td>
+</tr>
+<tr>
+<td>30/10</td>
+<td style="text-align: right;">6,0 kn</td>
+<td style="text-align: right;">68,57 h</td>
+<td style="text-align: right;">18,03 kn</td>
+<td style="text-align: right;">22,39 kn</td>
+<td style="text-align: right;">39,2%</td>
+<td style="text-align: right;">7,8%</td>
+<td style="text-align: right;">2,0%</td>
+<td>Valutabile vento</td>
+</tr>
+<tr>
+<td>31/10</td>
+<td style="text-align: right;">5,0 kn</td>
+<td style="text-align: right;">82,28 h</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td><strong>NON VALUTABILE</strong></td>
+</tr>
+<tr>
+<td>31/10</td>
+<td style="text-align: right;">5,5 kn</td>
+<td style="text-align: right;">74,80 h</td>
+<td style="text-align: right;">17,52 kn</td>
+<td style="text-align: right;">25,71 kn</td>
+<td style="text-align: right;">31,4%</td>
+<td style="text-align: right;">11,8%</td>
+<td style="text-align: right;">0,0%</td>
+<td>Valutabile vento</td>
+</tr>
+<tr>
+<td>31/10</td>
+<td style="text-align: right;">6,0 kn</td>
+<td style="text-align: right;">68,57 h</td>
+<td style="text-align: right;">17,73 kn</td>
+<td style="text-align: right;">24,47 kn</td>
+<td style="text-align: right;">29,4%</td>
+<td style="text-align: right;">7,8%</td>
+<td style="text-align: right;">0,0%</td>
+<td>Valutabile vento</td>
+</tr>
+</tbody>
+</table>
+<h3>3.2 Lettura comparativa</h3>
+<ul>
+<li><strong>30/10 a 5,5 kn</strong></li>
+<li>p90 del massimo vento: <strong>25,05 kn</strong>.</li>
+<li>Frequenza empirica vento &gt;25 kn: <strong>11,8%</strong>.</li>
+<li>Dai punti temporizzati, il settore più impegnativo appare <strong>Capraia – Mar Ligure</strong>, con onda deterministica in aumento fino a <strong>1,58 m</strong>.</li>
+<li><strong>31/10 a 5,5 kn</strong></li>
+<li>p90 del massimo vento: <strong>25,71 kn</strong>, leggermente più alto del 30/10 a pari velocità.</li>
+<li>Frequenza empirica vento &gt;20 kn più bassa: <strong>31,4%</strong> contro <strong>37,3%</strong>.</li>
+<li>Dai punti temporizzati, il massimo vento/raffica appare anticipato in <strong>Tirreno centrale</strong>, poi l’arrivo in Mar Ligure mostra onda deterministica più bassa rispetto alla partenza 30/10.</li>
+<li><strong>31/10 a 5,0 kn</strong></li>
+<li>arrivo oltre orizzonte ECMWF disponibile;</li>
+<li><strong>NON VALUTABILE</strong> per pianificazione completa.</li>
+</ul>
+<hr />
+<h2>4. Analisi per giornata di navigazione — 24 h continuative</h2>
+<p>Analisi dettagliata disponibile solo per velocità <strong>5,5 kn</strong>, perché i dati <code>route_timed</code> forniti sono relativi a questa velocità.<br />
+Per 5,0 kn e 6,0 kn la ripartizione giornaliera puntuale è <strong>NON VALUTABILE</strong> con i dati forniti.</p>
+<hr />
+<h3>4.1 Partenza 30 ottobre 2026 — 5,5 kn</h3>
+<h4>Giorno 1 — 30/10 07:00 → 31/10 06:15 UTC</h4>
+<p><strong>Settori:</strong> Policastro, Largo Palinuro, Tirreno meridionale.</p>
+<ul>
+<li>Vento ensemble:</li>
+<li>p90 vento generalmente sotto <strong>17,19 kn</strong>;</li>
+<li>massimo p90 vento nei dati puntuali: <strong>17,19 kn</strong> a P006, Largo Palinuro;</li>
+<li>raffica p90 massima: <strong>26,30 kn</strong> a P009, Tirreno meridionale.</li>
+<li>Onde deterministiche:</li>
+<li>valori presenti da P001 in avanti;</li>
+<li>onda massima nei punti del giorno: circa <strong>0,24 m</strong> a P013;</li>
+<li>P000 senza dato onda.</li>
+<li>Navigazione notturna:</li>
+<li>attraversamento Tirreno meridionale tra circa <strong>21:42 UTC e 06:15 UTC</strong>.</li>
+</ul>
+<h4>Giorno 2 — 31/10 07:57 → 01/11 06:45 UTC</h4>
+<p><strong>Settori:</strong> Largo Ponza, Tirreno centrale, Largo Argentario.</p>
