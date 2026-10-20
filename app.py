@@ -69,10 +69,11 @@ def aggregate_timeline(df):
    for q in (.1,.5,.9):row[f'{var}_p{int(q*100)}']=float(valid.quantile(q)) if len(valid) else None
   directions=g['wind_dir_deg'].dropna().astype(float) if 'wind_dir_deg' in g else pd.Series(dtype=float)
   directions=directions[np.isfinite(directions)]
-  row['wind_dir_deg']=None
+  row['wind_dir_deg']=None;row['wind_dir_agreement']=None
   if len(directions):
    radians=np.radians(directions)
    x,y=float(np.cos(radians).mean()),float(np.sin(radians).mean())
+   row['wind_dir_agreement']=math.hypot(x,y)
    if math.hypot(x,y)>1e-5:row['wind_dir_deg']=math.degrees(math.atan2(y,x))%360
   row['wind_rel_deg']=relative_angle(row['wind_dir_deg'],row['course_deg'])
   for var in ('wave_m','wave_period_s','wave_dir_deg','wave_rel_deg','swell_m'):

@@ -47,6 +47,16 @@ def test_timeline_relative_wind(monkeypatch,directions,course,expected):
     assert row['n_members']==2
 
 
+@pytest.mark.parametrize('directions,expected',[([90.,90.],1.),([0.,180.],0.),([0.,90.],2**.5/2),([None,None],None)])
+def test_timeline_direction_agreement(monkeypatch,directions,expected):
+    samples=pd.DataFrame([{'departure':'2026-10-30','speed_kn':5.5,'model':'ncep_gefs05','point_id':'P000',
+        'eta_utc':'2026-10-30T07:00:00Z','course_deg':0.,'wind_dir_deg':d,'wind_kn':10.,'gust_kn':15.,'pressure_hpa':1010.}
+        for d in directions])
+    monkeypatch.setattr(app,'read_csv',lambda name:samples)
+    agreement=app.timeline()[0]['wind_dir_agreement']
+    assert agreement is None if expected is None else agreement==pytest.approx(expected,abs=1e-9)
+
+
 def test_timeline_missing_direction_column(monkeypatch):
     samples=pd.DataFrame([{
         'departure':'2026-10-30','speed_kn':5.5,'model':'ncep_gefs05',
