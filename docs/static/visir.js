@@ -84,16 +84,18 @@ COG: ${val(p.COG, 1)}° | HDG: ${val(p.HDG, 1)}° | Th_wave: ${val(p.Th_wave, 1)
     highlight.setLatLng([p.lat, p.lon]);
     if (!overlay.hasLayer(highlight)) overlay.addLayer(highlight);
     const text = detail(p, interpolated);
+    const propulsionText = !interpolated && p.propulsion_mode != null ?
+      `\nPropulsione segmento uscente (VISIR): ${p.propulsion_mode === 'motor' ? 'motore' : p.propulsion_mode === 'sail' ? 'vela' : p.propulsion_mode}` : '';
     const r = selectedRoute();
     const index = interpolated ? -1 : r?.waypoints.findIndex(w => w.waypoint_ID === p.waypoint_ID);
     const a = index >= 0 ? analysisFor(r)?.waypoints[index] : null;
     const extra = a ? `\nNuova analisi ECMWF (non VISIR): vento P50 ${val(a.wind_kn_p50)} kn (${a.wind_n}/51 membri), raffica P90 ${val(a.gust_kn_p90)} kn (${a.gust_n}/51).
 Periodo onda ${val(a.wave_period_s)} s | Swell ${val(a.swell_m)} m
 Vento relativo HDG ${val(a.wind_rel_hdg_deg)}° | Onde relative HDG ${val(a.wave_rel_hdg_deg)}° | Concordanza vento ${val(a.wind_dir_agreement == null ? null : a.wind_dir_agreement * 100, 0)}%` : '';
-    $('visir-detail').textContent = text + extra;
+    $('visir-detail').textContent = text + propulsionText + extra;
     const box = document.createElement('div');
     box.style.whiteSpace = 'pre-line';
-    box.textContent = text + extra;
+    box.textContent = text + propulsionText + extra;
     highlight.bindTooltip(box, {direction: 'top'});
     if ($('visir-explorer').data) {
       const x = $('visir-chart-x').value === 'distance' ? p.cumDist : p.ISO_date;
@@ -177,6 +179,14 @@ Vento relativo HDG ${val(a.wind_rel_hdg_deg)}° | Onde relative HDG ${val(a.wave
       ['Vento massimo', val(wind.value, 2) + ' kn', `VISIR: ${wind.count}/${points.length} campioni validi`],
       ['Hs massima', val(waves.value, 2) + ' m', `VISIR: ${waves.count}/${points.length} campioni validi`],
     ];
+    const propulsion = r.propulsion;
+    const propulsionSource = propulsion?.complete ?
+      'Flag espliciti VISIR e tempi originali dei segmenti' :
+      'Non disponibile: flag o tempi dei segmenti incompleti';
+    cards.push(
+      ['Ore motore', hasValue(propulsion?.motor_hours) ? val(propulsion.motor_hours, 2) + ' h' : 'Non disponibili', propulsionSource],
+      ['Ore vela', hasValue(propulsion?.sail_hours) ? val(propulsion.sail_hours, 2) + ' h' : 'Non disponibili', propulsionSource]
+    );
     if (a) {
       cards.push(['Max raffica P90 (punti)', val(gust.value, 2) + ' kn',
         `Nuova analisi ECMWF: ${gust.count}/${points.length} punti; massimo dei P90 puntuali, non P90 di traversata`]);
