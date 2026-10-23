@@ -1,6 +1,8 @@
 /* Original VISIR data are independent of constant-speed weather screening. */
 (() => {
   const colors = ['#ffb454', '#9bafff', '#64e4bb', '#f793c6', '#78d9ef', '#e4dd73'];
+  const propulsionColors = {motor: '#ff9800', sail: '#35c875', unknown: '#9ca3af'};
+  const propulsionColor = p => propulsionColors[p.propulsion_mode] || propulsionColors.unknown;
   const chartIds = ['visir-sog', 'visir-wind', 'visir-wave'];
   const fields = ['SOG', 'wind_magn', 'Hs'];
   const units = ['kn', 'kn', 'm'];
@@ -122,17 +124,15 @@ Vento relativo HDG ${val(a.wind_rel_hdg_deg)}° | Onde relative HDG ${val(a.wave
     $('visir-clock').disabled = !selectedRoute()?.timed;
     $('visir-detail').textContent = '';
     for (const r of routes.filter(r => r.id === selectedId)) {
-      const color = colorFor(r);
-      L.polyline(r.waypoints.map(p => [p.lat, p.lon]), {
-        color, weight: r.id === selectedId ? 5 : 3, opacity: .9
-      }).on('click', () => {
-        selectedId = r.id;
-        $('visir-select').value = r.id;
-        showSelected();
-      }).addTo(overlay);
+      for (let i = 0; i < r.waypoints.length - 1; i++) {
+        const start = r.waypoints[i], end = r.waypoints[i + 1];
+        L.polyline([[start.lat, start.lon], [end.lat, end.lon]], {
+          color: propulsionColor(start), weight: 5, opacity: .95
+        }).on('click', () => mark(start)).addTo(overlay);
+      }
       r.waypoints.forEach((p, i) => {
         const marker = L.circleMarker([p.lat, p.lon], {
-          color, radius: i === 0 || i === r.waypoints.length - 1 ? 7 : 3,
+          color: propulsionColor(p), radius: i === 0 || i === r.waypoints.length - 1 ? 7 : 3,
           fillOpacity: 1, weight: 1
         });
         const box = document.createElement('div');

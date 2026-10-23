@@ -9,3 +9,6 @@ main>.tabs,main>.controls,#sourceinfo,.section:not(#visir),#footer{display:none}
 #visir-stats .card{margin-bottom:0;padding:12px}
 #visir-stats{margin:16px 0}
 #visir-stats .small{color:var(--muted)}
+.propulsion-legend{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0}
+.propulsion-legend span{display:flex;align-items:center;gap:7px}
+.propulsion-legend i{display:inline-block;width:25px;height:5px}
