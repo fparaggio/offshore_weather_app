@@ -1,0 +1,11 @@
+#visir-select{max-width:min(90vw,760px)}
+#visir-summary{white-space:pre-line;overflow-wrap:anywhere}
+#visir-detail{white-space:pre-line;min-height:110px}
+#visir-clock{display:block;width:100%;margin-top:15px}
+.visir-chart{height:245px}
+#visir-status[data-error="true"]{color:#ffad99}
+main>.tabs,main>.controls,#sourceinfo,.section:not(#visir),#footer{display:none}
+#visir-stats .kpi{font-size:23px}
+#visir-stats .card{margin-bottom:0;padding:12px}
+#visir-stats{margin:16px 0}
+#visir-stats .small{color:var(--muted)}
